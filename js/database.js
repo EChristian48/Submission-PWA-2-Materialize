@@ -1,5 +1,8 @@
-// import "./lib/idb.js";
-import * as idb from "./lib/idb.js";
+// Dev import
+import "./lib/idb.js";
+
+// Production import
+// import * as idb from "./lib/idb.js";
 
 class Database {
     constructor(databaseName, version) {

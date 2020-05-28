@@ -5,31 +5,18 @@
 
 // Cache things
 const CACHE_NAME = 'KNACK-IS-BACK-BAYBEE-V-14'
-const CACHED_ITEMS = [
-    // Icons and Manifest
-    './img/icons/android-chrome-192x192.png',
-    './img/icons/android-chrome-512x512.png',
-    './img/icons/apple-touch-icon.png',
-    './img/icons/favicon-16x16.png',
-    './img/icons/favicon-32x32.png',
-    './img/icons/favicon.ico',
-    './manifest.json',
 
-    // HTML
-    './',
-    './index.html',
-
-    // CSS
-    './css/bootstrap.min.css',
-    './css/color.css',
-    './css/card.css',
-    './css/style.css',
-
-    // JS
-    './js/dist/app.js',
-]
-// Old cache
+// Production cache
 // const CACHED_ITEMS = [
+//     // Icons and Manifest
+//     './img/icons/android-chrome-192x192.png',
+//     './img/icons/android-chrome-512x512.png',
+//     './img/icons/apple-touch-icon.png',
+//     './img/icons/favicon-16x16.png',
+//     './img/icons/favicon-32x32.png',
+//     './img/icons/favicon.ico',
+//     './manifest.json',
+//
 //     // HTML
 //     './',
 //     './index.html',
@@ -41,37 +28,51 @@ const CACHED_ITEMS = [
 //     './css/style.css',
 //
 //     // JS
-//     './js/lib/jquery.slim.min.js',
-//     './js/lib/bootstrap.bundle.min.js',
-//     './js/lib/idb.js',
-//
-//     './js/components/club-highlight.js',
-//     './js/components/random-club.js',
-//     './js/components/saved-club.js',
-//     './js/components/single-standing.js',
-//     './js/components/standings.js',
-//
-//     './js/api.js',
-//     './js/app.js',
-//     './js/constants.js',
-//     './js/database.js',
-//     './js/helper.js',
-//     './js/leagues.js',
-//     './js/notification.js',
-//     './js/program.js',
-//     './js/routes.js',
-//
-//     // Images
-//
-//     // Icons and Manifest
-//     './img/icons/android-chrome-192x192.png',
-//     './img/icons/android-chrome-512x512.png',
-//     './img/icons/apple-touch-icon.png',
-//     './img/icons/favicon-16x16.png',
-//     './img/icons/favicon-32x32.png',
-//     './img/icons/favicon.ico',
-//     './manifest.json',
+//     './js/dist/app.js',
 // ]
+
+// Dev cache
+const CACHED_ITEMS = [
+    // HTML
+    './',
+    './index.html',
+
+    // CSS
+    './css/materialize.min.css',
+    './css/color.css',
+    './css/style.css',
+
+    // JS
+    './js/lib/idb.js',
+    './js/lib/materialize.min.js',
+
+    './js/components/club-highlight.js',
+    './js/components/random-club.js',
+    './js/components/saved-club.js',
+    './js/components/single-standing.js',
+    './js/components/standings.js',
+
+    './js/api.js',
+    './js/app.js',
+    './js/constants.js',
+    './js/database.js',
+    './js/helper.js',
+    './js/leagues.js',
+    './js/notification.js',
+    './js/program.js',
+    './js/routes.js',
+
+    // Images
+
+    // Icons and Manifest
+    './img/icons/android-chrome-192x192.png',
+    './img/icons/android-chrome-512x512.png',
+    './img/icons/apple-touch-icon.png',
+    './img/icons/favicon-16x16.png',
+    './img/icons/favicon-32x32.png',
+    './img/icons/favicon.ico',
+    './manifest.json',
+]
 
 // API Things
 const API_URL = 'api.football-data.org/v2'
