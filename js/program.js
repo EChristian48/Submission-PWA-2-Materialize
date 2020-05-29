@@ -18,6 +18,7 @@ class Program {
 
             await Program.registerSW()
             await Program.db.init()
+            Program.initElements()
         } catch (e) {
             console.error(`Hmmm entah kenapa program-nya error: ${e}`)
         }
@@ -36,6 +37,14 @@ class Program {
         }
     }
 
+    static initElements() {
+        console.log('Initializing elements...')
+
+        const sideNavs = document.querySelectorAll('.sidenav')
+
+        console.log('Elements Initialized!')
+    }
+
     static async loadStandings(leagueID) {
         try {
             Helper.removeOldContent()
@@ -45,8 +54,12 @@ class Program {
             const standingsTable = document.createElement('standings-table')
             const standingsData = await API.getStandings(leagueID)
 
-            standingsTable.setStandings(standingsData)
-            standingsTable.render()
+            if (standingsData) {
+                standingsTable.setStandings(standingsData)
+                standingsTable.render()
+            } else {
+                standingsTable.renderError()
+            }
 
             content.append(standingsTable)
             Helper.hideElement('#contentSpinner')
@@ -73,15 +86,6 @@ class Program {
 
             content.append(randomClub)
             Helper.hideElement('#contentSpinner')
-
-            const button = document.getElementById('saveButton')
-            button.addEventListener('click', async () => {
-                try {
-                    await Program.db.saveClub(randomClubData)
-                } catch (e) {
-                    console.error(`Gagal menyimpan club: ${e}`)
-                }
-            })
         } catch (e) {
             console.error(`Hmmm entah kenapa gagal render: ${e}`)
         }

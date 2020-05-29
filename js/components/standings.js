@@ -25,14 +25,14 @@ class Standings extends HTMLElement {
         this.innerHTML = `
         <div class="container">
             <div class="row">
-                <div class="col-12 mb-3">
-                    <h3 class="text-white">${this.name} Standings:</h3>
-                    <h5 class="text-white">Last updated at: ${this.lastUpdated}</h5>
-                    <h5 class="text-white">Match day: ${this.matchDay}</h5>
-                    <h5 class="text-white">Winner: ${this.winner}</h5>
+                <div class="col s12">
+                    <h3>${this.name} Standings:</h3>
+                    <h5>Last updated at: ${this.lastUpdated}</h5>
+                    <h5>Match day: ${this.matchDay}</h5>
+                    <h5>Winner: ${this.winner}</h5>
                 </div>
-                <div class="col-12">
-                    <table class="table text-white table-responsive">
+                <div class="col s12">
+                    <table class="responsive-table">
                         <thead>
                         <tr>
                             <th>Position</th>
@@ -54,6 +54,12 @@ class Standings extends HTMLElement {
                 </div>
             </div>
         </div>
+        `
+    }
+
+    renderError() {
+        this.innerHTML = `
+            <p>Maaf kamu harus online paling nggak sekali lah ya sampe keload</p>
         `
     }
 }

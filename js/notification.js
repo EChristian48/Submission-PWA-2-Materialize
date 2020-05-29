@@ -33,11 +33,11 @@ class NotificationManager {
                         'BH7CLufxTvpmkPiFUHx5Z880MgRruU2BBa1dwOsE55oonIw2sOnuWAGpo0eKW2rI7GqIpZysG6QOfLjQ3EoekHA'
                     )
                 })
-                console.log(`BERHASIL LAH YA WALAU GA NGERTI ${subscription.endpoint}`)
-                console.log(`APAAN SIH ANJIR p256h: ${btoa(
+                console.log(`Berhasil subscsribe, endpoint: ${subscription.endpoint}`)
+                console.log(`Ini key p256h: ${btoa(
                     String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh'))))}`
                 )
-                console.log(`APAAN SIH ANJIR auth: ${btoa(
+                console.log(`Ini key auth: ${btoa(
                     String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth'))))}`
                 )
             }

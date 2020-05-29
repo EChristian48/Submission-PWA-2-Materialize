@@ -1,3 +1,6 @@
+import {Elements, Table} from "../elements.js";
+import {Program} from "../program.js";
+
 class ClubHighlight extends HTMLElement {
     constructor() {
         super()
@@ -13,28 +16,8 @@ class ClubHighlight extends HTMLElement {
         this._founded = '-'
         this._venue = '-'
 
-        // HTML structure
-        this.saveButton = document.createElement('button')
-        this.saveButton.id = 'saveButton'
-        this.saveButton.classList.add('btn', 'btn-block', 'btn-light')
-        this.saveButton.innerText = 'Save this club!'
-
-        this.buttonContainer = document.createElement('div')
-        this.buttonContainer.classList.add('col-12', 'mb-3')
-        this.buttonContainer.append(this.saveButton)
-
-        this.beginningHTML = `
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 mb-3">
-                    <h3 class="text-white">Team highlight:</h3>
-                </div>
-        `
-
-        this.endingHTML = `
-            </div>
-        </div>
-        `
+        // IDK what to call this
+        this.titleTextText = 'Team Highlight:'
     }
 
     setClub(club) {
@@ -47,111 +30,121 @@ class ClubHighlight extends HTMLElement {
         this._website = club.website
         this._founded = club.founded
         this._venue = club.venue
-    }
 
-    // Karena males bikin element jadi gini lol
-    getNameHTML() {
-        return `
-            <div class="col-12 col-md-3 col-lg-4">
-            <h2 class="text-white text-center">${this._name}</h2>
-        `
-    }
+        try {
+            // HTML structure
 
-    getImgHTML() {
-        if (this._img !== null) {
-            return `
-                <img alt="The team's logo, kalo broken, salahkan API-nya karena kasih link yang salah. Atau kamu lagi offline ya?" class="card-img mb-3" src="${this._img}">
-                </div>
-            `
+            // Main container
+            this.mainRow = Elements.row()
+
+            this.container = Elements.container()
+            this.container.append(this.mainRow)
+
+            // Title text
+            this.titleText = Elements.heading(3, this.titleTextText)
+
+            this.titleContainer = Elements.div()
+            this.titleContainer.classList.add('col', 's12')
+            this.titleContainer.append(this.titleText)
+
+            // Save button
+            this.saveButton = Elements.button('Save this club!')
+            this.saveButton.id = 'saveButton'
+            this.saveButton.classList.add('btn', 'btn-large', 'waves-effect', 'waves-light')
+            this.saveButton.addEventListener('click', async () => {
+                try {
+                    await Program.db.saveClub(club)
+                } catch (e) {
+                    console.error(`Gagal menyimpan club: ${e}`)
+                }
+            })
+
+            this.buttonContainer = Elements.div()
+            this.buttonContainer.classList.add('col', 's12', 'mb-1')
+            this.buttonContainer.append(this.saveButton)
+
+            // Crest card
+            if (this._img === null || this._img === '') {
+                this.crestImg = Elements.heading(5, 'This team doesn\'t have a logo')
+            } else {
+                this.crestImg = Elements.img(this._img)
+                this.crestImg.alt = 'The team\'s logo, kalo broken, salahkan API-nya karena kasih link yang salah. Atau kamu lagi offline ya?'
+            }
+
+            this.crestImgContainer = Elements.div()
+            this.crestImgContainer.classList.add('card-image')
+            this.crestImgContainer.append(this.crestImg)
+
+            this.teamName = Elements.p(this._name)
+            this.teamName.classList.add('flow-text')
+            this.teamNameContainer = Elements.div()
+            this.teamNameContainer.classList.add('card-content')
+            this.teamNameContainer.append(this.teamName)
+
+            this.card = Elements.card()
+            this.card.append(this.crestImgContainer, this.teamNameContainer)
+
+            this.cardContainer = Elements.div()
+            this.cardContainer.classList.add('col', 's12', 'm4', 'center-align')
+            this.cardContainer.append(this.card)
+
+            // Profile table
+            this.profileContainer = Elements.div()
+            this.profileContainer.classList.add('col', 's12', 'm8')
+
+            this.profileText = Elements.heading(4, 'Profile:')
+            this.profileTable = new Table()
+
+
+            // First row
+            this.profileTable.addRow()
+            this.profileTable.addData('Country')
+            this.profileTable.addData(this._country)
+
+            // Second row
+            this.profileTable.addRow()
+            this.profileTable.addData('Address')
+            this.profileTable.addData(this._address)
+            // Third row
+            this.profileTable.addRow()
+            this.profileTable.addData('Phone Number')
+            this.profileTable.addData(this._phoneNum)
+            // Fourth row
+            this.profileTable.addRow()
+            this.profileTable.addData('Website')
+            this.profileTable.addData(this._website)
+            // Fifth row
+            this.profileTable.addRow()
+            this.profileTable.addData('Year Founded')
+            this.profileTable.addData(this._founded)
+            // Sixth row
+            this.profileTable.addRow()
+            this.profileTable.addData('Venue')
+            this.profileTable.addData(this._venue)
+
+            this.profileContainer.append(this.profileText, this.profileTable.instance)
+        } catch (e) {
+            console.error(`Gagal bikin struktur HTML: ${e}`)
         }
-        return `
-            <h4 class="text-white text-center"><i>This team doesn't have a logo</i></h4>
-            </div>
-        `
-    }
-
-    getCountryHTML() {
-        return `
-            <div class="col-12 col-md-9 col-lg-8">
-            <h4 class="mb-3 text-center text-white">Profile:</h4>
-            <table class="table table-responsive-sm text-white">
-            <tbody>
-            <tr>
-            <td>Country</td>
-            <td>${this._country}</td>
-            </tr>
-        `
-    }
-
-    getAddressHTML() {
-        return `
-            <tr>
-            <td>Address</td>
-            <td>${this._address}</td>
-            </tr>
-        `
-    }
-
-    getPhoneNumHTML() {
-        return `
-            <tr>
-            <td>Phone Number</td>
-            <td>${this._phoneNum}</td>
-            </tr>
-        `
-    }
-
-    getWebsiteHTML() {
-        return `
-            <tr>
-            <td>Website</td>
-            <td><a class="text-white" href="${this._website}"><u>${this._website}</u></a></td>
-            </tr>
-        `
-    }
-
-    getFoundedHTML() {
-        return `
-            <tr>
-            <td>Year Founded</td>
-            <td>${this._founded}</td>
-            </tr>
-        `
-    }
-
-    getVenueHTML() {
-        return `
-            <tr>
-            <td>Venue</td>
-            <td>${this._venue}</td>
-            </tr>
-            </tbody>
-            </table>
-            </div>
-        `
     }
 
     render() {
-        this.innerHTML = this.beginningHTML +
-            this.buttonContainer.outerHTML +
-            this.getNameHTML() +
-            this.getImgHTML() +
-            this.getCountryHTML() +
-            this.getAddressHTML() +
-            this.getAddressHTML() +
-            this.getPhoneNumHTML() +
-            this.getWebsiteHTML() +
-            this.getFoundedHTML() +
-            this.getVenueHTML() +
-            this.endingHTML
+        this.mainRow.append(
+            this.titleContainer,
+            this.buttonContainer,
+            this.cardContainer,
+            this.profileContainer
+        )
+        this.append(
+            this.container,
+            Elements.divider()
+        )
     }
 
     renderError() {
-        this.innerHTML = this.beginningHTML +
-            `
-            <h5 class="text-center text-white">Maaf, kamu harus online setidaknya sekali untuk melihat ini</h5>
-            ` +
-            this.endingHTML
+        this.innerHTML = `
+            <p>Maaf kamu harus online paling nggak sekali lah ya sampe keload</p>
+        `
     }
 }
 

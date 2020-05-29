@@ -3,3 +3,19 @@
 @import "main.css";
 @import "color.css";
 @import "font.css";
+
+.mb-1 {
+    margin-bottom: 1em;
+}
+
+.d-none {
+    display: none;
+}
+
+.card-image {
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+}

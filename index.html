@@ -2,47 +2,61 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="" name="description">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="#FFC107" name="theme-color">
+    <meta charset="utf-8">
+    <meta content="Kesel tau ga sih" name="description">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="#FFC107" name="theme-color">
 
-  <link href="./img/icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-  <link href="./img/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-  <link href="./img/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
-  <link href="./img/icons/favicon.ico" rel="icon" type="image/png"/>
+    <link href="./img/icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+    <link href="./img/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+    <link href="./img/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+    <link href="./img/icons/favicon.ico" rel="icon" type="image/png"/>
 
-  <link href="./manifest.json" rel="manifest">
-  <link href="./css/style.css" rel="stylesheet">
+    <link href="./manifest.json" rel="manifest">
+    <link href="./css/style.css" rel="stylesheet">
 
-  <title>CO-BOLa</title>
+    <title>CO-BOLa</title>
 </head>
 <body>
 
 <header>
-  <nav class="red darken-1" role="navigation">
-    <div class="nav-wrapper container">
+    <nav class="red darken-1" role="navigation">
+        <div class="nav-wrapper container">
 
-      <a class="brand-logo" href="#" id="logo-container">CO-BOLa</a>
+            <a class="brand-logo" href="#/home" id="logo-container">CO-BOLa</a>
 
-      <a class="sidenav-trigger" data-target="nav-mobile" href="#"
-      ><i class="material-icons">menu</i></a
-      >
+            <a class="sidenav-trigger" data-target="nav-mobile">
+                <i class="material-icons">menu</i>
+            </a>
 
-      <ul class="topnav right hide-on-med-and-down"></ul>
-      <ul class="sidenav" id="nav-mobile"></ul>
+            <ul class="topnav right hide-on-med-and-down">
+                <li><a class="waves-effect" href="#/standings/premierLeague">Premiere League</a></li>
+                <li><a class="waves-effect" href="#/standings/serieA">Serie A</a></li>
+                <li><a class="waves-effect" href="#/standings/laLiga">La Liga</a></li>
+                <li><a class="waves-effect" href="#/standings/bundesliga">Bundesliga</a></li>
+                <li><a class="waves-effect" href="#/saved">Saved</a></li>
+            </ul>
 
-    </div>
-  </nav>
+            <ul class="sidenav" id="nav-mobile">
+                <li><a class="waves-effect" href="#/standings/premierLeague">Premiere League</a></li>
+                <li><a class="waves-effect" href="#/standings/serieA">Serie A</a></li>
+                <li><a class="waves-effect" href="#/standings/laLiga">La Liga</a></li>
+                <li><a class="waves-effect" href="#/standings/bundesliga">Bundesliga</a></li>
+                <li><a class="waves-effect" href="#/saved">Saved</a></li>
+            </ul>
+
+        </div>
+    </nav>
 </header>
 
-<section id="content">
-  <div id="contentSpinner">
-
-  </div>
+<section class="section" id="content">
+    <div class="progress container" id="contentSpinner">
+        <div class="indeterminate"></div>
+    </div>
 </section>
 
-<script src="./js/app.js" type="module"></script>
+<script defer src="./js/lib/materialize.min.js"></script>
+<script src="./dist/app.js" type="module"></script>
 
 </body>
 </html>

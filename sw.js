@@ -4,67 +4,11 @@
 // That's not even funny
 
 // Cache things
-const CACHE_NAME = 'KNACK-IS-BACK-BAYBEE-V-14'
+const CACHE_NAME = 'KNACK-IS-BACK-BAYBEE-V-16'
 
 // Production cache
-// const CACHED_ITEMS = [
-//     // Icons and Manifest
-//     './img/icons/android-chrome-192x192.png',
-//     './img/icons/android-chrome-512x512.png',
-//     './img/icons/apple-touch-icon.png',
-//     './img/icons/favicon-16x16.png',
-//     './img/icons/favicon-32x32.png',
-//     './img/icons/favicon.ico',
-//     './manifest.json',
-//
-//     // HTML
-//     './',
-//     './index.html',
-//
-//     // CSS
-//     './css/bootstrap.min.css',
-//     './css/color.css',
-//     './css/card.css',
-//     './css/style.css',
-//
-//     // JS
-//     './js/dist/app.js',
-// ]
-
-// Dev cache
 const CACHED_ITEMS = [
-    // HTML
-    './',
-    './index.html',
-
-    // CSS
-    './css/materialize.min.css',
-    './css/color.css',
-    './css/style.css',
-
-    // JS
-    './js/lib/idb.js',
-    './js/lib/materialize.min.js',
-
-    './js/components/club-highlight.js',
-    './js/components/random-club.js',
-    './js/components/saved-club.js',
-    './js/components/single-standing.js',
-    './js/components/standings.js',
-
-    './js/api.js',
-    './js/app.js',
-    './js/constants.js',
-    './js/database.js',
-    './js/helper.js',
-    './js/leagues.js',
-    './js/notification.js',
-    './js/program.js',
-    './js/routes.js',
-
-    // Images
-
-    // Icons and Manifest
+    // Image, Fonts, Icons and Manifest
     './img/icons/android-chrome-192x192.png',
     './img/icons/android-chrome-512x512.png',
     './img/icons/apple-touch-icon.png',
@@ -72,7 +16,68 @@ const CACHED_ITEMS = [
     './img/icons/favicon-32x32.png',
     './img/icons/favicon.ico',
     './manifest.json',
+    './img/jangan-bunuh-aku-dicoding.png',
+    'https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2',
+
+    // HTML
+    './',
+    './index.html',
+
+    // CSS
+    './css/materialize.min.css',
+    './css/font.css',
+    './css/main.css',
+    './css/normalize.css',
+    './css/color.css',
+    './css/style.css',
+
+    // JS
+    './dist/app.js',
+    './js/lib/materialize.min.js',
 ]
+
+// Dev cache
+// const CACHED_ITEMS = [
+    // // HTML
+    // './',
+    // './index.html',
+    //
+    // // CSS
+    // './css/materialize.min.css',
+    // './css/color.css',
+    // './css/style.css',
+    //
+    // // JS
+    // './js/lib/idb.js',
+    // './js/lib/materialize.min.js',
+    //
+    // './js/components/club-highlight.js',
+    // './js/components/random-club.js',
+    // './js/components/saved-club.js',
+    // './js/components/single-standing.js',
+    // './js/components/standings.js',
+    //
+    // './js/api.js',
+    // './js/app.js',
+    // './js/constants.js',
+    // './js/database.js',
+    // './js/helper.js',
+    // './js/leagues.js',
+    // './js/notification.js',
+    // './js/program.js',
+    // './js/routes.js',
+    //
+    // // Images
+    //
+    // // Icons and Manifest
+    // './img/icons/android-chrome-192x192.png',
+    // './img/icons/android-chrome-512x512.png',
+    // './img/icons/apple-touch-icon.png',
+    // './img/icons/favicon-16x16.png',
+    // './img/icons/favicon-32x32.png',
+    // './img/icons/favicon.ico',
+    // './manifest.json',
+// ]
 
 // API Things
 const API_URL = 'api.football-data.org/v2'
@@ -101,15 +106,17 @@ self.addEventListener('fetch', (e) => {
 
     async function loadCache() {
         try {
-            if (e.request.url.indexOf(API_URL) > -1) {
+            const requestURL = e.request.url
+            console.log(requestURL)
+            if (requestURL.indexOf(API_URL) > -1) {
                 const cache = await caches.open(CACHE_NAME)
                 const cacheResponse = await cache.match(e.request)
 
                 if (cacheResponse) {
-                    console.log(`Memperbarui cache: ${e.request.url}`)
+                    console.log(`Memperbarui cache: ${requestURL}`)
                     cache.add(e.request)
                         .then(() => {
-                            console.log(`Cache berhasil diperbarui (${e.request.url})`)
+                            console.log(`Cache berhasil diperbarui (${requestURL})`)
                         })
                         .catch(e => {
                             console.error(`Update cache gagal, nih error: ${e}`)
@@ -119,6 +126,15 @@ self.addEventListener('fetch', (e) => {
 
                 await cache.add(e.request)
                 return getFromCache(cache)
+            } else if (requestURL.indexOf('wikimedia') > -1 || requestURL.indexOf('null') > -1) {
+                const newURL = requestURL.replace(/^http:\/\//i, 'https://');
+                const response = await fetch(newURL)
+                if (response.status === 404) {
+                    const cache = await caches.open(CACHE_NAME)
+                    const img404 = await cache.match('./img/jangan-bunuh-aku-dicoding.png')
+                    return img404 || fetch('./img/jangan-bunuh-aku-dicoding.png')
+                }
+                return response
             } else {
                 const cache = await caches.open(CACHE_NAME)
                 return getFromCache(cache)
