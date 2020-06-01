@@ -11,6 +11,7 @@ webPush.setVapidDetails(
     vapidKeys.privateKey,
 )
 
+// Mungkin key sama endpoint-nya expired, tapi udah di-log pas aplikasinya jalan
 const pushSubscription = {
     endpoint: 'https://fcm.googleapis.com/fcm/send/fN-GydWkI_8:APA91bFmOLXoKInLrRg2nR7xokJ7kHJlF-_jIrWVicuDEYZZCQqx_kt-u35lZILfLuk1k-1CZFfcScn-GC-IflYqxZW90T_OcaNlF8elRlUsfee9xGS6hCL0FGWbMB-jf0491pzd3D2T',
     keys: {
