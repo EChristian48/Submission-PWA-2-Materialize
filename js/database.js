@@ -32,6 +32,19 @@ class Database {
         }
     }
 
+    async deleteClub(clubID) {
+        try {
+            console.log('Menghapus club...')
+            const transaction = await this.dbInstance.transaction('clubs', 'readwrite')
+            const store = await transaction.objectStore('clubs')
+            await store.delete(clubID)
+            console.log('Club berhasil dihapus!')
+            return transaction.complete
+        } catch (e) {
+            console.error('Error pas delete: ${e}')
+        }
+    }
+
     async getAllClubs() {
         try {
             const transaction = await this.dbInstance.transaction('clubs', 'readonly')

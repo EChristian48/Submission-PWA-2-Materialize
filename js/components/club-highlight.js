@@ -21,6 +21,7 @@ class ClubHighlight extends HTMLElement {
     }
 
     setClub(club) {
+        this.club = club
         this._id = club.id
         this._name = club.name
         this._img = club.crestUrl
@@ -51,13 +52,6 @@ class ClubHighlight extends HTMLElement {
             this.saveButton = Elements.button('Save this club!')
             this.saveButton.id = 'saveButton'
             this.saveButton.classList.add('btn', 'btn-large', 'waves-effect', 'waves-light')
-            this.saveButton.addEventListener('click', async () => {
-                try {
-                    await Program.db.saveClub(club)
-                } catch (e) {
-                    console.error(`Gagal menyimpan club: ${e}`)
-                }
-            })
 
             this.buttonContainer = Elements.div()
             this.buttonContainer.classList.add('col', 's12', 'mb-1')
@@ -129,6 +123,13 @@ class ClubHighlight extends HTMLElement {
     }
 
     render() {
+        this.saveButton.addEventListener('click', async () => {
+            try {
+                await Program.db.saveClub(this.club)
+            } catch (e) {
+                console.error(`Gagal menyimpan club: ${e}`)
+            }
+        })
         this.mainRow.append(
             this.titleContainer,
             this.buttonContainer,

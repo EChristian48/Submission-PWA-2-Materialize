@@ -41,6 +41,7 @@ class Program {
         console.log('Initializing elements...')
 
         const sideNavs = document.querySelectorAll('.sidenav')
+        M.Sidenav.init(sideNavs)
 
         console.log('Elements Initialized!')
     }
