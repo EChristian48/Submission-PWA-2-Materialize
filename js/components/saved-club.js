@@ -15,6 +15,7 @@ class SavedClub extends ClubHighlight {
                 await Program.db.deleteClub(this._id)
                 const content = document.querySelector('#content')
                 content.removeChild(this)
+                M.toast({html: 'Klub berhasil dihapus!'})
             } catch (e) {
                 console.error(`Gagal Menghapus club: ${e}`)
             }
