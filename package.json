@@ -4,7 +4,8 @@
   "description": "SUBMISSION 2 TAPI PAKE MATERIALIZE",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build-sw": "webpack --config=webpack.sw.js"
   },
   "repository": {
     "type": "git",
