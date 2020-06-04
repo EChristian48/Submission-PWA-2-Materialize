@@ -27,7 +27,7 @@ class Program {
     static async registerSW() {
         try {
             if ('serviceWorker' in navigator) {
-                await navigator.serviceWorker.register('../sw.js')
+                await navigator.serviceWorker.register('../service-worker.js')
                 console.log('Registrasi sw berhasil! Kece kan')
             } else {
                 throw new Error('Browsermu ga support mas')
