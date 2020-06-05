@@ -218,8 +218,9 @@ registerRoute(
 registerRoute(
     /http:\/\/upload.wikimedia.org/,
     (async (url, request, event, params) => {
-        url = url.replace(/^http:\/\//i, 'https://')
-        const response = await fetch(url)
+        let newURL = url.url.href
+        newURL = newURL.replace(/^http:\/\//i, 'https://')
+        const response = await fetch(newURL)
         if (response.status === 200) {
             return response
         }

@@ -144,7 +144,7 @@ class ClubHighlight extends HTMLElement {
 
     renderError() {
         this.innerHTML = `
-            <p>Maaf kamu harus online paling nggak sekali lah ya sampe keload</p>
+            <p>Maaf kamu harus online paling nggak sekali lah ya sampe keload, kalo engga coba reload</p>
         `
     }
 }
