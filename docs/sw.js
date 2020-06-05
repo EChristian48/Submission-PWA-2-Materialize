@@ -176,3 +176,69 @@
 //         self.registration.showNotification('Ini Push Notification', options)
 //     )
 // })
+import {precacheAndRoute} from "workbox-precaching";
+import {registerRoute} from "workbox-routing";
+import {StaleWhileRevalidate} from "workbox-strategies"
+
+precacheAndRoute([
+    // Favicon
+    { url: './img/icons/android-chrome-192x192.png', revision: '1'},
+    { url: './img/icons/android-chrome-512x512.png', revision: '1'},
+    { url: './img/icons/apple-touch-icon.png', revision: '1'},
+    { url: './img/icons/favicon-16x16.png', revision: '1'},
+    { url: './img/icons/favicon-32x32.png', revision: '1'},
+    { url: './img/icons/favicon.ico', revision: '1'},
+    // 404 Image
+    { url: './img/jangan-bunuh-aku-dicoding.png', revision: '1'},
+    // Manifest
+    { url: './manifest.json', revision: '1'},
+    // Font
+    { url: 'https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', revision: '1'},
+    // HTML
+    { url: './', revision: '1'},
+    { url: './index.html', revision: '1'},
+    // CSS
+    { url: './css/font.css', revision: '1'},
+    { url: './css/main.css', revision: '1'},
+    { url: './css/normalize.css', revision: '1'},
+    { url: './css/color.css', revision: '1'},
+    { url: './css/style.css', revision: '1'},
+    { url: './css/materialize.min.css', revision: '1'},
+    // JS
+    { url: './release/app.js', revision: '1'},
+    { url: './js/lib/materialize.min.js', revision: '1'},
+])
+
+registerRoute(
+    /https:\/\/api/,
+    new StaleWhileRevalidate({
+        cacheName: 'api-cache'
+    })
+)
+registerRoute(
+    /http:\/\/upload.wikimedia.org/,
+    (async (url, request, event, params) => {
+        url = url.replace(/^http:\/\//i, 'https://')
+        const response = await fetch(url)
+        if (response.status === 200) {
+            return response
+        }
+        return fetch('./img/jangan-bunuh-aku-dicoding.png')
+    })
+)
+
+self.addEventListener('push', (e) => {
+    const body = e.data.text() || 'Ini Payload'
+    console.log(e.data)
+
+    const options = {
+        body: body,
+        data: {
+            dateOfArrival: Date.now()
+        },
+    }
+
+    e.waitUntil(
+        self.registration.showNotification('Ini Push Notification', options)
+    )
+})
